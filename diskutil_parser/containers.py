@@ -51,6 +51,13 @@ class Partition(Device):
     def is_mounted(self):
         return self.mount_point is not None and self.mount_point.exists()
 
+    def __repr__(self) -> str:
+        name_str = f" (named {self.name})" if self.name else ''
+        uuid_str = f" (DiskUUID={self.uuid})" if self.uuid else ''
+        mount_str = f", mounted at {self.mount_point}" if self.mount_point else ''
+        return (f"<Partition {self.device_id}{name_str}{uuid_str} of type {self.content_type}{mount_str}," +
+                f" {self.size} bytes>")
+
 
 class Disk(Device):
     def __init__(self, size: int, partition_scheme: str, device_id: str, partitions: List[Partition]):
@@ -65,5 +72,11 @@ class Disk(Device):
         """The partition scheme for the disk. May be None if not detected"""
         self.partitions = partitions
         """The partition list"""
+
+    def __repr__(self) -> str:
+        part_str = (f", {len(self.partitions)} partitions using {self.partition_scheme}"
+                    if self.partition_scheme else '')
+        return f"<Disk {self.device_id}{part_str}, {self.size} bytes>"
+
 
 __all__ = ['Device', 'Partition', 'Disk']
