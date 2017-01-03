@@ -5,8 +5,11 @@ Gathers information about the disks present on a `macOS` installation by reading
 Currently supported:
 
 - Partition scheme information
+
 - Mount point
+
 - Partitions
+
   - Partition information
 
 If there's any feature you don't see, make an issue.
